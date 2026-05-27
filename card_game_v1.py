@@ -115,7 +115,14 @@ while turn < max_cards_per_player:
     rows = [row1, row2, row3]
 
     # check placement logic TBD
-
+    # filter out the rows whose last value is smaller than the card played.
+    # find which of the rows' last value is the closest to the card played
+    # when found, if the card played is greater, then add it to the row
+    # if the the number of cards in the row is greater than 5, then calculate the penalty by getting the sum of the row excluding the card played (for now, use the cards' value for penalty)
+    #       then clear the row, then initialize the row with the card played.
+    # repeat for all the cards played
+    
+    # repeat the whole loop until there are no more cards in hands left
 
 
 
