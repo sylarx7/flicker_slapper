@@ -186,12 +186,6 @@ while not is_game_over:
                     bot2_penalty += row_penalty_points
                 elif card == bot3_played:
                     bot3_penalty += row_penalty_points
-        # repeat for all the cards played
-        # repeat the whole loop until there are no more cards in hands left
-
-
-
-
 
     print("**TURN RESULT***")
     for row in rows:
@@ -217,3 +211,8 @@ while not is_game_over:
             print(f"BOT2 = {bot2_penalty}")
             print(f"BOT3 = {bot3_penalty}")
             is_game_over = True
+
+
+# **** NOTE FOR V2****
+# 1.when bot takes a penalty, make sure to take the row with the lowest sum instead of just randomly choosing a row regardless of penalty amount
+# 2 when players ran out of cards and no one still get to 666 points, make sure to shuffle the deck and redistrubute the cards
