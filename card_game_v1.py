@@ -1,4 +1,7 @@
 import random
+
+end_score = 666
+is_game_over = False
 # "shuffle" deck of cards that have values from 1-100
 
 # deck should have 100 total values
@@ -75,7 +78,7 @@ turn = 0
 
 cards_played = []
 
-while turn < max_cards_per_player:
+while not is_game_over:
     # clear/reset cards played
     cards_played.clear()
     print("******************")
@@ -117,12 +120,74 @@ while turn < max_cards_per_player:
     # check placement logic TBD
     # filter out the rows whose last value is smaller than the card played.
     # find which of the rows' last value is the closest to the card played
-    # when found, if the card played is greater, then add it to the row
-    # if the the number of cards in the row is greater than 5, then calculate the penalty by getting the sum of the row excluding the card played (for now, use the cards' value for penalty)
-    #       then clear the row, then initialize the row with the card played.
-    # repeat for all the cards played
-    
-    # repeat the whole loop until there are no more cards in hands left
+    for card in cards_played:
+        closest_row = None
+        # if lowest_difference is = 0 after all rows checked, that means that that no rows is valid
+        current_lowest_difference = None
+        for row in rows:
+            # check each row if it is smaller than the card played
+            # if it is, get get difference
+            if card > row[-1]:
+                difference = card - row[-1]
+                # assgn it as current lowest difference
+                # if the values still None; meaning this is the first instance
+                if current_lowest_difference is None:
+                    current_lowest_difference = difference
+                    closest_row = row
+                else:
+                    # compare and update differences 
+                    if difference < current_lowest_difference:
+                        current_lowest_difference = difference
+                        closest_row = row
+
+        # add new card to the row
+        # when found, if the card played is greater, then add it to the row
+        if closest_row is not None:
+            if len(closest_row) < 5:
+                closest_row.append(card)
+            # if the the number of cards in the row is greater than 5, then calculate the penalty by getting the sum of the row excluding the card played (for now, use the cards' value for penalty)
+            else:
+                # use the current card value for now
+                row_penalty_points = sum(closest_row)
+                #then clear the row, then initialize the row with the card played.
+                closest_row.clear()
+                closest_row.append(card)
+                # add the penalty point to the player or bot
+                if card == player_played:
+                    player_penalty += row_penalty_points
+                elif card == bot1_played:
+                    bot1_penalty += row_penalty_points
+                elif card == bot2_played:
+                    bot2_penalty += row_penalty_points
+                elif card == bot3_played:
+                    bot3_penalty += row_penalty_points
+        # if no row was modified, meaning the card is smaller than the last value on each row
+        else:
+            # if the card was played by the player
+            if card == player_played:
+                # row to reset
+                row_chosen = int(input("Pick a row to take 1, 2 ,3:\n> > >"))
+                row_penalty_points = sum(rows[row_chosen - 1])
+                rows[row_chosen - 1].clear()
+                rows[row_chosen - 1].append(card)
+                player_penalty += row_penalty_points
+            # if the card was played by 1 of the bots
+            else:
+                # do once since it is by the bot anyway
+                bot_picked = random.randint(1,3)
+                row_penalty_points = sum(rows[bot_picked - 1])
+                rows[bot_picked - 1].clear()
+                rows[bot_picked - 1].append(card)
+
+                # apply penalty points to the bot who played the card
+                if card == bot1_played:
+                    bot1_penalty += row_penalty_points
+                elif card == bot2_played:
+                    bot2_penalty += row_penalty_points
+                elif card == bot3_played:
+                    bot3_penalty += row_penalty_points
+        # repeat for all the cards played
+        # repeat the whole loop until there are no more cards in hands left
 
 
 
@@ -138,4 +203,17 @@ while turn < max_cards_per_player:
     print(f"BOT2 Penalty = {bot2_penalty}")
     print(f"BOT3 Penalty = {bot3_penalty}")
 
+    current_penalties = [player_penalty, bot1_penalty, bot2_penalty, bot3_penalty]
     turn += 1
+    # check if any player got 666 points then it's game over
+    for penalty in current_penalties:
+        if penalty >= end_score:
+            # DISPLAY GAME OVER Then RESULT
+            print("*****************************")
+            print("GAME OVER")
+            print("**SCORES**")
+            print(f"Player = {player_penalty}")
+            print(f"BOT1 = {bot1_penalty}")
+            print(f"BOT2 = {bot2_penalty}")
+            print(f"BOT3 = {bot3_penalty}")
+            is_game_over = True
