@@ -6,6 +6,7 @@ class Card:
         self.value = value
         # for now, have a random value for penalties
         self.penalty = random.randint(1,10)
+        self.played_by = None
 
     def __str__(self):
         return f"Card# {self.value} (PP{self.penalty})"
