@@ -24,3 +24,11 @@ class Deck:
     def shuffle(self):
         random.shuffle(self.deck)
 
+    # distribute card
+    def deal(self):
+        # get the last card from the deck
+        card = self.deck[-1]
+        # remove said card from the deck
+        self.deck.pop(-1)
+        # return card
+        return card
