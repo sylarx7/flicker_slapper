@@ -31,6 +31,7 @@ class Player:
         # display card played
         print(f"{self.name} played -> {card_played}")
         
+        card.played_by = self
         return card_played
 
     def __str__(self):
