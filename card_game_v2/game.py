@@ -5,9 +5,6 @@ from .utilities.player import Player
 
 class Game:
     def __init__(self):
-        self.deck = Deck(100)   #create deck
-        self.deck.build()       #build the deck
-        self.deck.shuffle()     #shuffle deck
         self.is_game_over = False   #game state
         self.max_card_on_hand = 10
         self.max_points = 100
@@ -22,6 +19,11 @@ class Game:
             [],
             []
         ]
+
+    def Setup_Deck(self):
+        self.deck = Deck(100)   #create deck
+        self.deck.build()       #build the deck
+        self.deck.shuffle()     #shuffle deck
 
     def Start(self):
         # add card to the rows to start
@@ -146,11 +148,7 @@ class Game:
                 for player in self.players:
                     player.hand.clear()
                 
-                # build new deck
-                self.deck = Deck(100)
-                self.deck.build()
-                # shuffle
-                self.deck.shuffle()
+                self.Setup_Deck()
                 # give cards to players and make new rows
                 self.Start()
 
