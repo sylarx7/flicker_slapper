@@ -13,7 +13,7 @@ class Player:
         card_played = None
         if self.is_bot:
             # pick random card on hand
-            chosen_input = random.choice(self.hand)
+            chosen_input = random.choice(self.hand).value
 
         else:
             # if human player, display current hand

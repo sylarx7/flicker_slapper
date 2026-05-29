@@ -1,5 +1,5 @@
 import random
-from utilities.card import Card
+from .card import Card
 
 class Deck:
     def __init__(self, max_number_of_cards):

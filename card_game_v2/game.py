@@ -1,5 +1,5 @@
-from utilities.deck import Deck
-from utilities.player import Player
+from .utilities.deck import Deck
+from .utilities.player import Player
 
 
 
@@ -37,15 +37,19 @@ class Game:
         cards_played = []
 
         # display the rows
+        row_number = 1
         for row in self.rows:
-            print(row)
-
+            print(f"Row 1 => {row}")
+            row_number += 1
         # ask palyers to play a card
         for player in self.players:
             cards_played.append(player.play_card())
         
+        print("===============")
+
         # sort played cards in ascending order
-        cards_played.sort()
+        # print(f"DEBUG: cards played: {cards_played}")
+        cards_played.sort(key = lambda v: v.value)
 
         # process placement of played cards
         # filter out the played cards
@@ -56,9 +60,11 @@ class Game:
 
             # check against the last value in the row
             for row in self.rows:
+                # print(f"DEBUG: row contents => {row}")
+                # print(f"DEBUG: Last Value Type => {type(row[-1])}")
                 # get difference if card played is greater than the row's last value
                 if card > row[-1]:
-                    difference = card - row[-1]
+                    difference = card.value - row[-1].value
                     # if this is the first filter, or have lower difference
                     if lowest_difference is None or difference < lowest_difference:
                         lowest_difference = difference
@@ -156,3 +162,9 @@ class Game:
 
         print("GAME OVER!")
 
+    def DisplayRow(self):
+        # display the rows
+        row_number = 1
+        for row in self.rows:
+            print(f"Row {row_number} =>")
+            row += 1
