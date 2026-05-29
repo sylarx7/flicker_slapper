@@ -2,8 +2,9 @@ import random
 from utilities.card import Card
 
 class Deck:
-    def __init__(self):
+    def __init__(self, max_number_of_cards):
         self.deck = []
+        self.max_number_of_cards = max_number_of_cards
     
     def __str__(self):
         return f"{self.deck}"
@@ -13,7 +14,7 @@ class Deck:
     def build(self):
         # starting value
         value = 1
-        while len(self.deck) != 100:
+        while len(self.deck) != self.max_number_of_cards:
             # create card with increasing value
             card = Card(value)
             self.deck.append(card)
