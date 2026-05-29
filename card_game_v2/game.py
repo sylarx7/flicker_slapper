@@ -115,7 +115,7 @@ class Game:
     
         # sort the current rankings
         # using the lambda function, it will sort the list object using their attribute
-        player_current_rankings.sort(key = lambda p : p.player.penalty_points)
+        player_current_rankings.sort(key = lambda p : p.penalty_points)
         
         # display rankings
         for rank, player in enumerate(player_current_rankings, start=1):
@@ -124,3 +124,35 @@ class Game:
         # check if game is over; a player reach max score
         if player_current_rankings[-1].penalty_points >= self.max_points:
             self.is_game_over = True
+
+    def PlayGame(self):
+        self.Start()
+        rounds_played = 0
+
+        while not self.is_game_over:
+            # check if players still have cards on hand
+            if len(self.players[0].hand) <= 0:
+                # reset counter, rows and player hands for good measure
+
+                for row in self.rows:
+                    row.clear()
+
+                for player in self.players:
+                    player.hand.clear()
+                
+                # build new deck
+                self.deck = Deck(100)
+                self.deck.build()
+                # shuffle
+                self.deck.shuffle()
+                # give cards to players and make new rows
+                self.Start()
+
+
+            # Play a Round
+            self.Round()
+            print(f"==+ END OF ROUND {rounds_played + 1}===")
+            rounds_played += 1
+
+        print("GAME OVER!")
+
