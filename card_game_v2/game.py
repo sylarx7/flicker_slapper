@@ -1,0 +1,17 @@
+from utilities.deck import Deck
+from utilities.player import Player
+
+
+
+class Game:
+    def __init__(self):
+        self.deck = Deck(100)   #create deck
+        self.deck.build()       #build the deck
+        self.deck.shuffle()     #shuffle deck
+        self.is_game_over = False   #game state
+        self.players = [
+            Player("Player", False),
+            Player("Bot-1", True),
+            Player("Bot-2", True),
+            Player("Bot-3", True),
+        ]
