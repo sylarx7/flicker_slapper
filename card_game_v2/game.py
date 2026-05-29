@@ -15,3 +15,23 @@ class Game:
             Player("Bot-2", True),
             Player("Bot-3", True),
         ]
+        self.max_card_on_hand = 10
+        self.rows =  [
+            [],
+            [],
+            []
+        ]
+
+    def Start(self):
+        # add card to the rows to start
+        for row in self.rows:
+            row.append(self.deck.deal())
+        # display row
+        for row in self.rows:
+            print(row)
+
+        # give cards to palyers
+        for player in self.players:
+            while len(player.hand) != self.max_card_on_hand:
+                player.hand.append(self.deck.deal())
+
