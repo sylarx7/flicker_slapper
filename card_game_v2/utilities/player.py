@@ -6,24 +6,32 @@ class Player:
         self.name = name
         self.is_bot = is_bot
         self.hand = []
-        self.penalty = 0
+        self.penalty_points = 0
 
     def play_card(self):
+        chosen_input = None
         card_played = None
         if self.is_bot:
             # pick random card on hand
-            card_played = random.choice(self.hand)
+            chosen_input = random.choice(self.hand)
 
         else:
             # if human player, display current hand
             print("your hand")
             print(self.hand)
-            card_played = int(input("Pick card to play --> "))
+            chosen_input = int(input("Pick card to play --> "))
         
         # remove card from hand
-        self.hand.remove(card_played)
+        for card in self.hand:
+            if card.value == chosen_input:
+                card_played = card
+                self.hand.remove(card)
+                break
+
         # display card played
         print(f"{self.name} played -> {card_played}")
+        
+        return card_played
 
     def __str__(self):
         return f"{self.name} joins the game"
