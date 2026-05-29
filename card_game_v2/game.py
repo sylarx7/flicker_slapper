@@ -39,7 +39,7 @@ class Game:
         # display the rows
         row_number = 1
         for row in self.rows:
-            print(f"Row 1 => {row}")
+            print(f"Row {row_number} => {row}")
             row_number += 1
         # ask palyers to play a card
         for player in self.players:
@@ -161,10 +161,3 @@ class Game:
             rounds_played += 1
 
         print("GAME OVER!")
-
-    def DisplayRow(self):
-        # display the rows
-        row_number = 1
-        for row in self.rows:
-            print(f"Row {row_number} =>")
-            row += 1
