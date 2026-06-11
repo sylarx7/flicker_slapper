@@ -134,6 +134,7 @@ class Game:
             self.is_game_over = True
 
     def PlayGame(self):
+        self.Setup_Deck()
         self.Start()
         rounds_played = 0
 
