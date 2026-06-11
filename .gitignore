@@ -295,4 +295,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+*.vsconfig
+
 # End of https://www.toptal.com/developers/gitignore/api/unity,windows,visualstudiocode,blender,python
